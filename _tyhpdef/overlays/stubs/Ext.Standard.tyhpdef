@@ -2308,7 +2308,7 @@ function usort<T, TArray extends array<T> = array<T>>(TArray &$array, callable $
 * @generated from PHP v8.5.8, EXT: standard v8.5.8
 */
 // @overlay-against: function var_dump(mixed $value, mixed $values): void
-function var_dump(mixed $value, array<int, mixed> ...$values): void;
+function var_dump(mixed $value, mixed ...$values): void;
 /**
 * Write a formatted string to a stream
 *

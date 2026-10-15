@@ -793,23 +793,42 @@ function array_unshift<TKey extends int|string, TValue>(array<TKey, TValue> &$ar
 function array_values<TKey extends int|string, TValue>(array<TKey, TValue> $array): array<int, TValue>;
 
 /**
- * Overlay: restore optional `$arg`; callback is value, key, then the extra arg.
+ * Overlay: without `$arg` the callback receives the value and the key.
  */
 // @overlay-against: function array_walk(object|array $array, callable $callback, mixed $arg): true
 function array_walk<TKey extends int|string, TValue>(
     array<TKey, TValue>|object &$array,
-    callable(TValue, TKey, mixed): void $callback,
-    mixed $arg = null
+    callable(TValue, TKey): void $callback
 ): true;
 
 /**
- * Overlay: restore optional `$arg`; walks nested arrays with the same callback shape.
+ * Overlay: with `$arg` the callback receives value, key, then the extra arg.
+ */
+// @overlay-against: function array_walk(object|array $array, callable $callback, mixed $arg): true
+function array_walk<TKey extends int|string, TValue, TArg>(
+    array<TKey, TValue>|object &$array,
+    callable(TValue, TKey, TArg): void $callback,
+    TArg $arg
+): true;
+
+/**
+ * Overlay: without `$arg` the callback receives the value and the key; nested arrays are walked
+ * with the same callback shape.
  */
 // @overlay-against: function array_walk_recursive(object|array $array, callable $callback, mixed $arg): true
 function array_walk_recursive<TKey extends int|string, TValue>(
     array<TKey, TValue>|object &$array,
-    callable(TValue, TKey, mixed): void $callback,
-    mixed $arg = null
+    callable(TValue, TKey): void $callback
+): true;
+
+/**
+ * Overlay: with `$arg` the callback receives value, key, then the extra arg.
+ */
+// @overlay-against: function array_walk_recursive(object|array $array, callable $callback, mixed $arg): true
+function array_walk_recursive<TKey extends int|string, TValue, TArg>(
+    array<TKey, TValue>|object &$array,
+    callable(TValue, TKey, TArg): void $callback,
+    TArg $arg
 ): true;
 
 // @overlay-against: function arsort(array $array, int $flags): true

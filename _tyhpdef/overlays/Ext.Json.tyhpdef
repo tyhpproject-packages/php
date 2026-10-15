@@ -8,8 +8,9 @@
  *
  * `$associative` overloads use `true` / `false` / `null` literals. Flag overloads use
  * integer literals (Decision 18: `const int NAME ?? N` is literal `N` at the call site).
- * Bitwise `|` of `JSON_*` constants is not folded to a literal, so those calls use the
- * `int $flags` catch-all.
+ * A bitwise `|` / `&` / `^` of those constants matches a non-zero literal parameter when
+ * every bit of the literal is set, so `JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES`
+ * selects the throw overload. Two literals that match equally stay on the `int` catch-all.
  *
  * JSON scalars (`"hi"`, `42`, `true`, `null`) keep their PHP types in every mode. JSON
  * arrays are always PHP lists. Only JSON objects follow `$associative` /
